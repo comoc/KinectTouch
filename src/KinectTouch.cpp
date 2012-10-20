@@ -70,7 +70,7 @@ int initOpenNI(const XnChar* fname) {
 	nRetVal = xnContext.FindExistingNode(XN_NODE_TYPE_IMAGE, xnImgeGenertor);
 	CHECK_RC(nRetVal, "FindExistingNode(XN_NODE_TYPE_IMAGE)");
 
-	return 0;
+	return nRetVal;
 }
 
 void average(vector<Mat1s>& frames, Mat1s& mean) {
@@ -123,7 +123,7 @@ int main() {
 	Mat1s background(480, 640);
 	vector<Mat1s> buffer(nBackgroundTrain);
 
-	initOpenNI("niConfig.xml");
+	CHECK_RC(initOpenNI("niConfig.xml"), "initOpenNI");
 
 	// TUIO server object
 	TuioServer* tuio;
@@ -143,7 +143,7 @@ int main() {
 
 	// create background model (average depth)
 	for (unsigned int i=0; i<nBackgroundTrain; i++) {
-		xnContext.WaitAndUpdateAll();
+		CHECK_RC(xnContext.WaitAndUpdateAll(), "xnContext.WaitAndUpdateAll()");
 		depth.data = (uchar*) xnDepthGenerator.GetDepthMap();
 		buffer[i] = depth;
 	}

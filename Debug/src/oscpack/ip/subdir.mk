@@ -12,12 +12,13 @@ OBJS += \
 CPP_DEPS += \
 ./src/oscpack/ip/IpEndpointName.d 
 
+PWD = $(shell pwd)
 
 # Each subdirectory must supply rules for building sources it contributes
 src/oscpack/ip/%.o: ../src/oscpack/ip/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -I/usr/include/ni -I"/home/robbe/workspace/KinectTouch/src/oscpack" -I"/home/robbe/workspace/KinectTouch/src/TUIO" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o"$@" "$<"
+	$(CXX) -I/usr/include/ni -I$(PWD)"/../src/oscpack" -I$(PWD)"/../src/TUIO" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o"$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
