@@ -130,7 +130,7 @@ int main() {
 	if (localClientMode) {
 		tuio = new TuioServer();
 	} else {
-		tuio = new TuioServer("192.168.0.2",3333,false);
+		tuio = new TuioServer("192.168.0.1",3333,false);
 	}
 	TuioTime time;
 
